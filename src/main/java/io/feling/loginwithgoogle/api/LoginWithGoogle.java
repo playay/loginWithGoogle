@@ -14,6 +14,7 @@ import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.util.EntityUtils;
+import org.joda.time.DateTime;
 
 import java.util.Date;
 import java.util.UUID;
@@ -65,7 +66,7 @@ public class LoginWithGoogle implements PojoRequestHandler<APIGatewayRequest, AP
                                     set("familyName", tokeninfo.getFamilyName()),
                                     set("userAvatar", tokeninfo.getPicture()),
                                     set("accessToken", accessToken),
-                                    set("accessTokenExpiredAt", new Date(System.currentTimeMillis() + (1000 * 60 * 60 * 24))),
+                                    set("accessTokenExpiredAt", DateTime.now().plusDays(30).toDate()),
                                     currentDate("lastModified"),
                                     setOnInsert("firstCreated", new Date())
                             ),

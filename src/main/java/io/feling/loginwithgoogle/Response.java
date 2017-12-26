@@ -9,7 +9,7 @@ import java.util.Map;
 
 public class Response<T> implements Serializable {
 
-    private static final Gson gson = new GsonBuilder().serializeNulls().create();
+    private static final Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:sss.SSS").serializeNulls().create();
 
     private Result result = new Result<T>();
     private Map<String, Object> extraRoot = Maps.newHashMap();
