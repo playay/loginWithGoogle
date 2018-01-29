@@ -8,6 +8,7 @@ import com.google.gson.GsonBuilder;
 import com.mongodb.client.model.FindOneAndUpdateOptions;
 import io.feling.loginwithgoogle.*;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.http.HttpEntity;
 import org.apache.http.client.config.RequestConfig;
 import org.apache.http.client.methods.CloseableHttpResponse;
@@ -31,6 +32,10 @@ public class LoginWithGoogle implements PojoRequestHandler<APIGatewayRequest, AP
     @Override
     public APIGatewayResponse handleRequest(APIGatewayRequest input, Context context) {
         try {
+            if(StringUtils.isNotEmpty(input.getQueryParameters().get("doNotDie"))) {
+                return new APIGatewayResponse(new Response().msg("alive").toString());
+            }
+
             String httpResult = get("https://proxy.feling.io/www.googleapis.com/oauth2/v3/tokeninfo?id_token="
                     + input.getQueryParameters().get("idToken"));
 

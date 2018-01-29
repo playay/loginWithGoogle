@@ -6,6 +6,7 @@ import com.mongodb.client.model.FindOneAndUpdateOptions;
 import com.mongodb.client.model.ReturnDocument;
 import io.feling.loginwithgoogle.*;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
 import org.joda.time.DateTime;
 
 import java.util.Date;
@@ -20,6 +21,10 @@ public class GetLoginInfo implements PojoRequestHandler<APIGatewayRequest, APIGa
     @Override
     public APIGatewayResponse handleRequest(APIGatewayRequest input, Context context) {
         try {
+            if(StringUtils.isNotEmpty(input.getQueryParameters().get("doNotDie"))) {
+                return new APIGatewayResponse(new Response().msg("alive").toString());
+            }
+
             FindOneAndUpdateOptions option = new FindOneAndUpdateOptions();
             option.upsert(false);
             option.returnDocument(ReturnDocument.AFTER);
