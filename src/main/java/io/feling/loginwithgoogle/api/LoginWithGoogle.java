@@ -45,7 +45,7 @@ public class LoginWithGoogle implements PojoRequestHandler<APIGatewayRequest, AP
                 throw new RuntimeException("认证失败.");
             }
 
-            if (!"1093205252929-cm3ev302entgv6kutudb7i077je31g3r.apps.googleusercontent.com".equals(tokeninfo.getAud())) {
+            if (!"1093205252929-r3fj3lliprgso4nrbtan10ugl4d7a1cl.apps.googleusercontent.com".equals(tokeninfo.getAud())) {
                 throw new RuntimeException("认证失败..");
             }
 
