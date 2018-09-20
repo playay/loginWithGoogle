@@ -42,6 +42,8 @@ public class GetLoginInfo implements PojoRequestHandler<APIGatewayRequest, APIGa
                             ),
                             option
                     );
+            userInfo.setUserId(null);
+            userInfo.setLastModified(null);
             return new APIGatewayResponse(new Response().data(userInfo).toString());
         } catch (Exception e) {
             return new APIGatewayResponse(new Response().fail().errCode("E000001").msg(e.getMessage()).toString());
