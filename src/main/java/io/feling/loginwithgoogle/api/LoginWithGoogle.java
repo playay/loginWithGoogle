@@ -57,7 +57,7 @@ public class LoginWithGoogle implements PojoRequestHandler<APIGatewayRequest, AP
 
             FindOneAndUpdateOptions options = new FindOneAndUpdateOptions();
             options.upsert(true);
-            MongoClients.getCollection("userInfo", UserInfo.class)
+            UserInfo userInfo = MongoClients.getCollection("userInfo", UserInfo.class)
                     .findOneAndUpdate(
                             and(
                                     eq("isDel", 0),
@@ -82,8 +82,9 @@ public class LoginWithGoogle implements PojoRequestHandler<APIGatewayRequest, AP
                     new Response().data(
                             ImmutableMap.of(
                                     "accessToken", accessToken,
-                                    "userName", tokeninfo.getName(),
-                                    "userAvatar", tokeninfo.getPicture()
+                                    "userName", userInfo.getUserName(),
+                                    "userAvatar", userInfo.getUserAvatar(),
+                                    "accessTokenExpiredAt", userInfo.getAccessTokenExpiredAt()
                             )
                     ).toString()
             );
